@@ -1,0 +1,32 @@
+----------------------------------------------------------------------------------------------------
+PAC-BAYESIAN DOMAIN ADAPTATION (aka PBDA)
+Version 0.90 (June 15, 2013), Released under the BSD-license
+http://graal.ift.ulaval.ca/pbda/ 
+----------------------------------------------------------------------------------------------------
+Author: 
+    Pascal Germain. Groupe de Recherche en Apprentissage Automatique de l'Universite Laval (GRAAL).
+
+Reference: 
+    Pascal Germain, Amaury Habrard, Francois Laviolette, and Emilie Morvant. 
+    A PAC-Bayesian Approach for Domain Adaptation with Specialization to Linear Classifiers. 
+    International Conference on Machine Learning (ICML) 2013. 
+---------------------------------------------------------------------------------------------------- 
+
+Thank you for looking at my code!
+
+This program have been tested using Python 2.7.4 under Linux.
+It requires the NumPy and SciPy libraries.
+
+I prepared two small scripts to use PBDA by the command line:
+1) pbda_learn.py: Execute the learning algorithm
+2) pbda_classify.py: Execute the classification function
+
+Further usage instructions can be obtained by the following commands:
+python pbda_learn.py --help
+python pbda_classify.py --help
+
+For more informations, please visit:  
+http://graal.ift.ulaval.ca/pbda/
+
+Pascal Germain.
+
