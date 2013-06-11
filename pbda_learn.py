@@ -17,7 +17,7 @@ import argparse
 
 common.print_header('LEARNING ALGORITHM')
 
-# Arguments parser   
+# Arguments parser
 parser = argparse.ArgumentParser(description="", formatter_class=common.custom_formatter, epilog="")
 
 parser.add_argument("-c", dest="C_value", type=float, default=1.0, help="Trade-off parameter \"C\" (source risk modifier). Default: 1.0")
@@ -35,19 +35,35 @@ parser.add_argument("target_file", help="Defines the file containing the target 
 args = parser.parse_args()
 
 # Main program
+###############################################################################
 print('... Loading dataset files ...')
-if args.format == 'matrix':
-    source_data = dataset_from_matrix_file(args.source_file)
-    print(str(source_data.get_nb_examples()) + ' source examples loaded.')
-    target_data = dataset_from_matrix_file(args.target_file)
-elif args.format == 'svmlight':    
-    source_data = dataset_from_svmlight_file(args.source_file)
-    print(str(source_data.get_nb_examples()) + ' source examples loaded.')
-    target_data = dataset_from_svmlight_file(args.target_file, source_data.get_nb_features())
-    source_data.reshape_features(target_data.get_nb_features())
-print(str(target_data.get_nb_examples()) + ' target examples loaded.')
-    
+###############################################################################
+try:
+    if args.format == 'matrix':
+        source_data = dataset_from_matrix_file(args.source_file)
+    elif args.format == 'svmlight':   
+        source_data = dataset_from_svmlight_file(args.source_file)
+except:
+    print('ERROR: Unable to load source file "' + args.source_file + '".')
+    sys.exit(-1)
+ 
+print(str(source_data.get_nb_examples()) + ' source examples loaded.')
+
+try:
+    if args.format == 'matrix':
+        target_data = dataset_from_matrix_file(args.target_file)
+    elif args.format == 'svmlight':
+        target_data = dataset_from_svmlight_file(args.target_file, source_data.get_nb_features())
+        source_data.reshape_features(target_data.get_nb_features())
+except:
+    print('ERROR: Unable to load target file "' + args.target_file + '".')
+    sys.exit(-1)
+ 
+print(str(target_data.get_nb_examples()) + ' target examples loaded.')  
+
+###############################################################################
 print('\n... Learning ...')
+###############################################################################
 if args.kernel == 'rbf':
     kernel = Kernel('rbf', gamma=args.gamma)
 elif args.kernel == 'linear':
@@ -56,17 +72,26 @@ elif args.kernel == 'linear':
 algo = Pbda(A=args.A_value, C=args.C_value, verbose=True, nb_restarts=args.nb_restarts )
 classifier = algo.learn(source_data, target_data, kernel) 
 
+###############################################################################
 print('\n... Saving model: "' + args.model_file + '" ...')
-with open(args.model_file, 'wb') as model:
-    pickle.dump(classifier, model, pickle.HIGHEST_PROTOCOL)
-
-print('File "' + args.model_file + '" created.')
+###############################################################################
+try:
+    with open(args.model_file, 'wb') as model:
+        pickle.dump(classifier, model, pickle.HIGHEST_PROTOCOL)
+    print('File "' + args.model_file + '" created.')
+except:
+    print('ERROR: Unable to write model file "' + args.model_file + '".')
 
 if len(args.weight_file) > 0:
-    classifier.write_to_file(args.weight_file)
-    print('File "' + args.weight_file + '" created.')
+    try:
+        classifier.write_to_file(args.weight_file)
+        print('File "' + args.weight_file + '" created.')
+    except:
+        print('ERROR: Unable to write weight file "' + args.weight_file + '".')
 
+############################################################################### 
 print('\n... Computing statistics ...')
+###############################################################################
 stats_dict = algo.get_stats()
 
 for key,val in stats_dict.iteritems():

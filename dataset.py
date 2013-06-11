@@ -19,12 +19,12 @@ class Dataset:
         self.X = X
         self.Y = Y
         
-    def load_matrix_file(self, filename, separator=' ', first_column_contains_labels=True, last_column_contains_labels=False):       
+    def load_matrix_file(self, filename, separator=None, first_column_contains_labels=True, last_column_contains_labels=False):       
         """ Load a matrix file, where each line defines an example.
         first_column_contains_labels: specifies that first matrix column defines the labels (default)
         last_column_contains_labels:  specifies that last matrix column defines the labels 
         """
-        data_matrix = np.fromfile(filename, sep=separator)
+        data_matrix = np.loadtxt(filename, delimiter=separator)
         
         if first_column_contains_labels and last_column_contains_labels:
             raise Exception('first_column_contains_labels and last_column_contains_labels')
@@ -72,10 +72,12 @@ class Dataset:
                  
     def get_nb_examples(self):
         """ Return the number of examples of the dataset. """
+        if self.X is None: return 0
         return np.size(self.X, 0)       
     
     def get_nb_features(self):
         """ Return the number of features of each example. """
+        if self.X is None: return 0
         return np.size(self.X, 1)
 
     def select_examples(self, indices):
@@ -93,7 +95,7 @@ class Dataset:
             self.X = np.hstack(( self.X, np.zeros([nb_examples, diff_features]) ))
 
         
-def dataset_from_matrix_file(filename, separator=' ', first_column_contains_labels=True, last_column_contains_labels=False):
+def dataset_from_matrix_file(filename, separator=None, first_column_contains_labels=True, last_column_contains_labels=False):
     """Utility function. Initialize a dataset and call Dataset.load_matrix_file(...)."""
     data = Dataset()
     data.load_matrix_file(filename, separator, first_column_contains_labels, last_column_contains_labels)

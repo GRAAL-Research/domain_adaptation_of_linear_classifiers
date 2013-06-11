@@ -28,25 +28,42 @@ parser.add_argument("test_file", help="Defines the file containing the dataset t
 args = parser.parse_args()
 
 # Main program
+###############################################################################
 print('... Loading model file ...')
-with open(args.model_file, 'rb') as model:
-    classifier = pickle.load(model)
+###############################################################################
+try:
+    with open(args.model_file, 'rb') as model:
+        classifier = pickle.load(model)
+except:
+    print('ERROR: Unable to load model file "' + args.model_file + '".')
+    sys.exit(-1)
 
 print('File "' + args.model_file + '" loaded.')
 
+###############################################################################
 print('\n... Loading dataset file ...')
-if args.format == 'matrix':
-    test_data = dataset_from_matrix_file(args.test_file)
-elif args.format == 'svmlight':
-    test_data = dataset_from_svmlight_file(args.test_file)
-    test_data.reshape_features( classifier.X1_shape[1] )
+###############################################################################
+try:
+    if args.format == 'matrix':
+        test_data = dataset_from_matrix_file(args.test_file)
+    elif args.format == 'svmlight':   
+        test_data = dataset_from_svmlight_file(args.test_file)
+except:
+    print('ERROR: Unable to load test file "' + args.test_file + '".')
+    sys.exit(-1)
+ 
 print(str(test_data.get_nb_examples()) + ' test examples loaded.')
 
+###############################################################################
 print('\n... Prediction ...')
+###############################################################################
 predictions = classifier.predict(test_data.X)
 
-predictions.tofile(args.prediction_file, '\n')
-print('File "' + args.prediction_file + '" created.')
+try:
+    predictions.tofile(args.prediction_file, '\n')
+    print('File "' + args.prediction_file + '" created.')
+except:
+    print('ERROR: Unable to write prediction file "' + args.prediction_file + '".')
 
 risk = classifier.calc_risk(test_data.Y, predictions=predictions)
 
