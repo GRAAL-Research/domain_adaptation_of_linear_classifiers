@@ -7,8 +7,8 @@ common functions.
 '''
 import argparse
 
-STR_VERSION_NUMBER = '0.90'
-STR_VERSION_DATE   = 'June 15, 2013'
+STR_VERSION_NUMBER = '0.901'
+STR_VERSION_DATE   = 'August 9, 2013'
 
 TEXT_WIDTH = 100
 STR_LINE = '-'*TEXT_WIDTH + '\n'
