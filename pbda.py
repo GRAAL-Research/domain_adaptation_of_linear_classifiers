@@ -99,13 +99,13 @@ class Pbda:
     
     def perform_one_optimization(self, initial_vector, i):
         """Perform a optimization round."""  
-        if self.verbose: print('\nPerforming optimization #' + str(i+1) + '.')  
+        if self.verbose and self.nb_restarts > 1: print('\nPerforming optimization #' + str(i+1) + '.')  
         
         optimizer_output = optimize.fmin_l_bfgs_b(self.calc_cost, initial_vector, self.calc_gradient) 
         cost = optimizer_output[1] 
         
         if self.verbose:
-            print 'cost value:', cost
+            print('cost value: ' +  str(cost))
             for (key, val) in optimizer_output[2].items():
                 if key is not 'grad': print(str(key) + ': ' + str(val))                    
     

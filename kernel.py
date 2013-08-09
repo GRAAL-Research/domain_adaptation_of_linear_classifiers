@@ -106,7 +106,7 @@ class KernelClassifier:
         alpha_vector: weight vector (optional) """
         self.kernel         = kernel
         self.X1             = X
-        self.X1_shape       = np.shape(X)
+        self.X1_shape       = np.shape(X) if X is not None else (0,0)
         
         if alpha_vector is None:
             self.alpha_vector = np.zeros(self.X1_shape[0])

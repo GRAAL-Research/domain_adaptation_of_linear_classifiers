@@ -26,7 +26,7 @@ def print_header(subtext):
         '    International Conference on Machine Learning (ICML) 2013. \n' + \
         STR_LINE
 
-    print text
+    print(text)
 
 def custom_formatter(prog):
     formatter = argparse.RawDescriptionHelpFormatter(prog, indent_increment=2, max_help_position=20, width=TEXT_WIDTH)
