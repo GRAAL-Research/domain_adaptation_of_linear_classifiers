@@ -33,7 +33,7 @@ class Dataset:
             self.Y = data_matrix[ :, -1 ]
         elif first_column_contains_labels:
             self.X = data_matrix[ :, 1: ]
-            self.Y = data_matrix[ :, 1] 
+            self.Y = data_matrix[ :, 0] 
         else:
             self.X = data_matrix
             self.Y = np.zeros( np.size(data_matrix, 0) )       
