@@ -199,17 +199,3 @@ class Dalc:
 
         return stats
         
-                  
-if __name__ == '__main__':
-    from dataset import Dataset
-    from kernel import Kernel
-
-    from moons_utils import draw_moons_grid
-
-    def my_learn_function(X, y, Xt, _B):
-        algo = Dalc(verbose=True, B=_B, C=1., convexify=False, joint_loss=True)
-        clf = algo.learn(Dataset(X,y), Dataset(Xt), kernel=Kernel('rbf', gamma=1.))
-        print(algo.get_stats())
-        return clf.predict
-
-    draw_moons_grid(my_learn_function, [1.,], [10,30,50])
