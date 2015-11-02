@@ -1,29 +1,30 @@
 #-*- coding:utf-8 -*-
 '''
-PAC-BAYESIAN DOMAIN ADAPTATION (aka PBDA)
+DOMAIN ADAPTATION OF LINEAR CLASSIFIERS (aka DALC)
+See: http://arxiv.org/abs/1506.04573
+
 common functions.
 
 @author: Pascal Germain -- http://graal.ift.ulaval.ca/pgermain
 '''
 import argparse
 
-STR_VERSION_NUMBER = '0.901'
-STR_VERSION_DATE   = 'August 9, 2013'
+STR_VERSION_NUMBER = '0.90'
+STR_VERSION_DATE   = 'November 2, 2015'
 
 TEXT_WIDTH = 100
 STR_LINE = '-'*TEXT_WIDTH + '\n'
 
 def print_header(subtext):
     text = STR_LINE + \
-        'PAC-BAYESIAN DOMAIN ADAPTATION (aka PBDA) : ' + subtext + '\n' + \
+        'DOMAIN ADAPTATION OF LINEAR CLASSIFIERS (aka DALC) : ' + subtext + '\n' + \
         'Version ' + STR_VERSION_NUMBER + ' (' + STR_VERSION_DATE + '), Released under the BSD-license\n' + \
-        'http://graal.ift.ulaval.ca/pbda/ \n' + \
         STR_LINE + 'Author: \n' + \
         '    Pascal Germain. Groupe de Recherche en Apprentissage Automatique de l\'Universite Laval (GRAAL).\n\n' + \
         'Reference: \n' + \
         '    Pascal Germain, Amaury Habrard, Francois Laviolette, and Emilie Morvant. \n' + \
-        '    A PAC-Bayesian Approach for Domain Adaptation with Specialization to Linear Classifiers. \n' + \
-        '    International Conference on Machine Learning (ICML) 2013. \n' + \
+        '    A New PAC-Bayesian Perspective on Domain Adaptation.\n' + \
+        '    http://arxiv.org/abs/1506.04573\n' + \
         STR_LINE
 
     print(text)

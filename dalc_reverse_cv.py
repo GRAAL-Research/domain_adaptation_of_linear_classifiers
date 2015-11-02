@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 '''
-PAC-BAYESIAN DOMAIN ADAPTATION (aka PBDA)
+DOMAIN ADAPTATION OF LINEAR CLASSIFIERS (aka DALC)
+See: http://arxiv.org/abs/1506.04573
+
 Executable script to perform reverse cross-validation
 
 @author: Pascal Germain -- http://graal.ift.ulaval.ca/pgermain
 '''
 import common
-from pbda import *
+from dalc import *
 from dataset import *
 from kernel import *
 
@@ -22,10 +24,9 @@ common.print_header('REVERSE CROSS-VALIDATION HELPER')
 # Arguments parser
 parser = argparse.ArgumentParser(description="", formatter_class=common.custom_formatter, epilog="")
 
-parser.add_argument("-c", dest="C_value", type=float, default=1.0, help="Trade-off parameter \"C\" (source risk modifier). Default: 1.0")
-parser.add_argument("-a", dest="A_value", type=float, default=1.0, help="Trade-off parameter \"A\" (domain disagreement modifier). Default: 1.0")
+parser.add_argument("-b", dest="B_value", type=float, default=1.0, help="Trade-off parameter \"B\" (source joint error modifier). Default: 1.0")
+parser.add_argument("-c", dest="C_value", type=float, default=1.0, help="Trade-off parameter \"C\" (target disagreement modifier). Default: 1.0")
 parser.add_argument("--nb_folds", "-cv", dest="nb_folds",  type=int, default=5, help='Number of cross validation folds. Default: 5')
-
 
 parser.add_argument("--kernel", "-k", dest="kernel", default="linear", choices=['rbf', 'linear'], help="Kernel function. Default: linear.")
 parser.add_argument("--gamma",  "-g", dest="gamma",  type=float, default=1.0, help="Gamma parameter of the RBF kernel. Only used if --kernel is set to rbf. Default: 1.0")
@@ -99,7 +100,7 @@ def folds_indices(indices_groups, i_fold):
     indices = indices_groups[:]
     valid_indices = indices.pop(i_fold)    
     train_indices = np.hstack(indices)
-    return  train_indices, valid_indices
+    return train_indices, valid_indices
 
 risk_list = []
 for i_fold in range(args.nb_folds):   
@@ -120,7 +121,7 @@ for i_fold in range(args.nb_folds):
 
     # Learn a classifier and assign label to target examples
     print('\n*** Source --> Target ***')
-    algo = Pbda(A=args.A_value, C=args.C_value, verbose=True, nb_restarts=args.nb_restarts )
+    algo = Dalc(C=args.C_value, B=args.B_value, verbose=True, nb_restarts=args.nb_restarts )
     alpha_vector = algo.learn_on_kernel_matrix(train_kernel_matrix, train_label_vector)
     classifier = KernelClassifier(Kernel('precomputed'), None, alpha_vector)
     
@@ -129,7 +130,7 @@ for i_fold in range(args.nb_folds):
     
     # Learn a reverse classifier and test it on the validation fold
     print('\n*** Target --> Source ***')
-    algo = Pbda(A=args.A_value, C=args.C_value, verbose=True, nb_restarts=args.nb_restarts )
+    algo = Dalc(C=args.C_value, B=args.B_value, verbose=True, nb_restarts=args.nb_restarts )
     alpha_vector = algo.learn_on_kernel_matrix(train_kernel_matrix, reverse_label_vector)            
     classifier = KernelClassifier(Kernel('precomputed'), None, alpha_vector)
         

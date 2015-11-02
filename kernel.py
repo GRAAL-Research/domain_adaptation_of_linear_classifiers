@@ -1,6 +1,8 @@
 #-*- coding:utf-8 -*-
 '''
-PAC-BAYESIAN DOMAIN ADAPTATION (aka PBDA)
+DOMAIN ADAPTATION OF LINEAR CLASSIFIERS (aka DALC)
+See: http://arxiv.org/abs/1506.04573
+
 Kernel class and KernelClassifier class
 
 @author: Pascal Germain -- http://graal.ift.ulaval.ca/pgermain
@@ -73,15 +75,15 @@ class Kernel:
                 dim2          = np.size(X2,0)    
                 kernel_matrix = np.zeros( (dim1,dim2) )
                 
-                for i in xrange(dim1):
-                    for j in xrange(dim2):
+                for i in range(dim1):
+                    for j in range(dim2):
                         kernel_matrix[i,j] = self.kernel_func(X1[i], X2[j], **self.args) 
             else:
                 dim1          = np.size(X1,0)
                 kernel_matrix = np.zeros( (dim1,dim1) )
                 
-                for i in xrange(dim1):
-                    for j in xrange(i+1):
+                for i in range(dim1):
+                    for j in range(i+1):
                         value = self.kernel_func(X1[i], X1[j], **self.args) 
                         kernel_matrix[i,j] = value
                         kernel_matrix[j,i] = value       

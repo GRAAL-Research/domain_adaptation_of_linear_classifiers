@@ -1,36 +1,31 @@
-----------------------------------------------------------------------------------------------------
-PAC-BAYESIAN DOMAIN ADAPTATION (aka PBDA)
-Version 0.901 (August 9, 2013), Released under the BSD-license
-http://graal.ift.ulaval.ca/pbda/ 
-----------------------------------------------------------------------------------------------------
-Author: 
-    Pascal Germain. Groupe de Recherche en Apprentissage Automatique de 
-    l'Universite Laval (GRAAL).
+---------------------------------------------------------------------------
+DOMAIN ADAPTATION OF LINEAR CLASSIFIERS (aka DALC)
+Version 0.90 (November 2, 2015), Released under the BSD-license
+---------------------------------------------------------------------------
+Author:
+    Pascal Germain. Groupe de Recherche en Apprentissage Automatique
+    de l'Universite Laval (GRAAL).
 
-Reference: 
-    Pascal Germain, Amaury Habrard, Francois Laviolette, and Emilie Morvant. 
-    A PAC-Bayesian Approach for Domain Adaptation with Specialization to 
-    Linear Classifiers.
-    International Conference on Machine Learning (ICML) 2013. 
----------------------------------------------------------------------------------------------------- 
+Reference:
+    Pascal Germain, Amaury Habrard, Francois Laviolette, and Emilie Morvant.
+    A New PAC-Bayesian Perspective on Domain Adaptation.
+    http://arxiv.org/abs/1506.04573
+----------------------------------------------------------------------------
 
 Thank you for looking at my code!
 
-This program have been tested using Python 2.7.4 under Linux.
+This program have been tested using Python 2.5.0 under Linux and MacOS.
 It requires the NumPy and SciPy libraries.
 
-I prepared three small scripts to use PBDA by the command line:
-1) pbda_learn.py: Execute the learning algorithm
-2) pbda_classify.py: Execute the classification function
-3) pbda_reverse_cv.py: Compute a "reverse cross-validation" score
+I prepared three small scripts to use DALC by the command line:
+1) dalc_learn.py: Execute the learning algorithm
+2) dalc_classify.py: Execute the classification function
+3) dalc_reverse_cv.py: Compute a "reverse cross-validation" score
 
 Further usage instructions can be obtained by the following commands:
-python pbda_learn.py --help
-python pbda_classify.py --help
-python pbda_reverse_cv.py --help
-
-For more informations, please visit:  
-http://graal.ift.ulaval.ca/pbda/
+python dalc_learn.py --help
+python dalc_classify.py --help
+python dalc_reverse_cv.py --help
 
 Pascal Germain.
 

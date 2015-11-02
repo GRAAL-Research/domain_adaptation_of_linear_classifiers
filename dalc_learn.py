@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 '''
-DOMAIN ADAPTATION LEARNING OF LINEAR CLASSIFIERS (aka DALC)
+DOMAIN ADAPTATION OF LINEAR CLASSIFIERS (aka DALC)
 See: http://arxiv.org/abs/1506.04573
 
 Executable script to launch the learning algorithm
@@ -17,13 +17,12 @@ import sys
 import pickle
 import argparse 
 
-# common.print_header('LEARNING ALGORITHM')
+common.print_header('LEARNING ALGORITHM')
 
 # Arguments parser
 parser = argparse.ArgumentParser(description="", formatter_class=common.custom_formatter, epilog="")
 
 parser.add_argument("-b", dest="B_value", type=float, default=1.0, help="Trade-off parameter \"B\" (source joint error modifier). Default: 1.0")
-
 parser.add_argument("-c", dest="C_value", type=float, default=1.0, help="Trade-off parameter \"C\" (target disagreement modifier). Default: 1.0")
 
 parser.add_argument("--kernel", "-k", dest="kernel", default="linear", choices=['rbf', 'linear'], help="Kernel function. Default: linear.")
@@ -97,7 +96,7 @@ print('\n... Computing statistics ...')
 ###############################################################################
 stats_dict = algo.get_stats()
 
-for key,val in stats_dict.iteritems():
+for key,val in stats_dict.items():
     print( str(key) + ' = ' + str(val) )
 
 

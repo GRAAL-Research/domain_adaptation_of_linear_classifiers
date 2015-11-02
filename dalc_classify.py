@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 '''
-DOMAIN ADAPTATION LEARNING OF LINEAR CLASSIFIERS (aka DALC)
+DOMAIN ADAPTATION OF LINEAR CLASSIFIERS (aka DALC)
 See: http://arxiv.org/abs/1506.04573
 
 Executable script to use the classifier (to be used after the learning process).

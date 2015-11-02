@@ -1,6 +1,8 @@
 #-*- coding:utf-8 -*-
 '''
-PAC-BAYESIAN DOMAIN ADAPTATION (aka PBDA)
+DOMAIN ADAPTATION OF LINEAR CLASSIFIERS (aka DALC)
+See: http://arxiv.org/abs/1506.04573
+
 Dataset class
 
 @author: Pascal Germain -- http://graal.ift.ulaval.ca/pgermain
@@ -64,7 +66,7 @@ class Dataset:
             nb_features = max(nb_features, max( features_list )[0] )
             
         self.X = np.zeros( (len(labels_list), nb_features) )
-        for i in xrange( len(labels_list) ):
+        for i in range( len(labels_list) ):
             for (j, val) in examples_list[i]:
                 self.X[i,j-1] = val
                 
