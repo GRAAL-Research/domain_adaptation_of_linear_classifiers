@@ -67,11 +67,11 @@ class Dalc:
         nb_restarts: Number of random restarts of the optimization process.
         verbose: If True, output informations. Otherwise, stay quiet.
         """       
-        self.B  = float(B)
-        self.C  = float(C)
+        self.B = float(B)
+        self.C = float(C)
         
         self.nb_restarts = int(nb_restarts)
-        self.verbose     = bool(verbose)
+        self.verbose = bool(verbose)
 
         if convexify:
             self.source_loss_fct = gaussian_joint_error_convex
@@ -80,7 +80,6 @@ class Dalc:
             self.source_loss_fct = gaussian_joint_error
             self.source_loss_derivative_fct = gaussian_joint_error_derivative
 
-        
     def learn(self, source_data, target_data, kernel=None, return_kernel_matrix=False):
         """Launch learning process."""
         if kernel is None: kernel = 'linear'
@@ -89,14 +88,14 @@ class Dalc:
             kernel = Kernel(kernel_str=kernel)
 
         if self.verbose: print('Building kernel matrix.')
-        data_matrix  = np.vstack(( source_data.X, target_data.X) )
-        label_vector = np.hstack(( source_data.Y, np.zeros(target_data.get_nb_examples()) ))
+        data_matrix = np.vstack((source_data.X, target_data.X))
+        label_vector = np.hstack((source_data.Y, np.zeros(target_data.get_nb_examples())))
         
         kernel_matrix = kernel.create_matrix(data_matrix)
         
         alpha_vector = self.learn_on_kernel_matrix(kernel_matrix, label_vector)
 
-        classifier =  KernelClassifier(kernel, data_matrix, alpha_vector)
+        classifier = KernelClassifier(kernel, data_matrix, alpha_vector)
         if return_kernel_matrix:
             return classifier, kernel_matrix
         else:
@@ -106,10 +105,10 @@ class Dalc:
         """Launch learning process, from a kernel matrix. In label_vector, 0 indicates target examples."""                     
         self.kernel_matrix = kernel_matrix
         self.label_vector = np.array(label_vector, dtype=int)
-        self.target_mask = np.array( self.label_vector == 0, dtype=int )
-        self.source_mask = np.array( self.label_vector != 0, dtype=int )
+        self.target_mask = np.array(self.label_vector == 0, dtype=int)
+        self.source_mask = np.array(self.label_vector != 0, dtype=int)
 
-        self.nb_examples = len( self.label_vector )
+        self.nb_examples = len(self.label_vector)
                 
         if np.shape(kernel_matrix) != (self.nb_examples, self.nb_examples):
             raise Exception("kernel_matrix and label_vector size differ.")
@@ -120,7 +119,7 @@ class Dalc:
         best_cost, best_output = self.perform_one_optimization(initial_vector, 0)
         
         for i in range(1, self.nb_restarts):
-            initial_vector = (np.random.rand( self.nb_examples ) -.5) / self.nb_examples
+            initial_vector = (np.random.rand(self.nb_examples) - 0.5) / self.nb_examples
             cost, optimizer_output = self.perform_one_optimization(initial_vector, i)
             
             if cost < best_cost:
@@ -139,7 +138,7 @@ class Dalc:
         cost = optimizer_output[1] 
         
         if self.verbose:
-            print('cost value: ' +  str(cost))
+            print('cost value: ' + str(cost))
             for (key, val) in optimizer_output[2].items():
                 if key is not 'grad': print(str(key) + ': ' + str(val))                    
     
@@ -147,7 +146,7 @@ class Dalc:
                            
     def calc_cost(self, alpha_vector, full_output=False):
         """Compute the cost function value at alpha_vector."""
-        kernel_matrix_dot_alpha_vector = np.dot( self.kernel_matrix, alpha_vector )
+        kernel_matrix_dot_alpha_vector = np.dot(self.kernel_matrix, alpha_vector)
         margin_vector = kernel_matrix_dot_alpha_vector * self.margin_factor
         
         joint_err_vector = self.source_loss_fct(margin_vector) * self.source_mask
@@ -170,10 +169,10 @@ class Dalc:
         kernel_matrix_dot_alpha_vector = np.dot( self.kernel_matrix, alpha_vector )
         margin_vector = kernel_matrix_dot_alpha_vector * self.margin_factor
 
-        d_joint_err_vector = self.source_loss_derivative_fct( margin_vector ) * self.margin_factor * self.source_mask
+        d_joint_err_vector = self.source_loss_derivative_fct(margin_vector) * self.margin_factor * self.source_mask
         d_loss_source_vector = np.dot(d_joint_err_vector, self.kernel_matrix)
                         
-        d_dis_vector = gaussian_disagreement_derivative( margin_vector ) * self.margin_factor * self.target_mask
+        d_dis_vector = gaussian_disagreement_derivative(margin_vector) * self.margin_factor * self.target_mask
         d_loss_target_vector = np.dot(d_dis_vector, self.kernel_matrix)
                           
         d_KL_vector = kernel_matrix_dot_alpha_vector
@@ -198,4 +197,4 @@ class Dalc:
         stats['optimizer warnflag'] = self.optimizer_output[2]['warnflag']
 
         return stats
-        
+

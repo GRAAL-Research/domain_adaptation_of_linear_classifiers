@@ -10,10 +10,11 @@ common functions.
 import argparse
 
 STR_VERSION_NUMBER = '0.90'
-STR_VERSION_DATE   = 'November 2, 2015'
+STR_VERSION_DATE = 'November 2, 2015'
 
 TEXT_WIDTH = 100
 STR_LINE = '-'*TEXT_WIDTH + '\n'
+
 
 def print_header(subtext):
     text = STR_LINE + \
@@ -24,10 +25,12 @@ def print_header(subtext):
         'Reference: \n' + \
         '    Pascal Germain, Amaury Habrard, Francois Laviolette, and Emilie Morvant. \n' + \
         '    A New PAC-Bayesian Perspective on Domain Adaptation.\n' + \
+        '    International Conference on Machine Learning (ICML) 2016.\n' + \
         '    http://arxiv.org/abs/1506.04573\n' + \
         STR_LINE
 
     print(text)
+
 
 def custom_formatter(prog):
     formatter = argparse.RawDescriptionHelpFormatter(prog, indent_increment=2, max_help_position=20, width=TEXT_WIDTH)

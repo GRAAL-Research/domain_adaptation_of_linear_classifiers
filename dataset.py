@@ -109,4 +109,3 @@ def dataset_from_svmlight_file(filename, min_features=0):
     data.load_svmlight_file(filename, min_features)
     return data
 
-        

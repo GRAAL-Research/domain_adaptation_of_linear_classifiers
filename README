@@ -9,12 +9,13 @@ Author:
 Reference:
     Pascal Germain, Amaury Habrard, Francois Laviolette, and Emilie Morvant.
     A New PAC-Bayesian Perspective on Domain Adaptation.
+    International Conference on Machine Learning (ICML) 2016.
     http://arxiv.org/abs/1506.04573
 ----------------------------------------------------------------------------
 
 Thank you for looking at my code!
 
-This program have been tested using Python 2.5.0 under Linux and MacOS.
+This program have been tested using Python 3.5 under Linux and MacOS.
 It requires the NumPy and SciPy libraries.
 
 I prepared three small scripts to use DALC by the command line:

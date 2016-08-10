@@ -11,19 +11,24 @@ import numpy as np
 from scipy.spatial.distance import cdist
 from scipy.sparse import issparse
 
-#kernel functions
+
+# kernel functions
 def linear_kernel(point_1, point_2):
     return np.dot(point_1, point_2)
 
+
 def linear_matrix(X1, X2):
     return np.dot(X1, X2.T)
+
 
 def rbf_kernel(point_1, point_2, gamma):
     diff = point_1 - point_2
     return np.exp(-gamma * np.dot(diff, diff))
 
+
 def rbf_matrix(X1, X2, gamma):
-    return np.exp( -gamma * cdist(X1, X2, 'sqeuclidean') )
+    return np.exp(-gamma * cdist(X1, X2, 'sqeuclidean') )
+
 
 def precomputed_matrix(X1, X2):
     return X2.T
@@ -42,20 +47,20 @@ class Kernel:
         self.name = kernel_str
         self.args = kernel_args
         
-        if (self.name == 'custom'):
+        if self.name == 'custom':
             self.kernel_func = kernel_func
             self.matrix_func = matrix_func 
                  
-        elif (self.name == 'rbf'):
+        elif self.name == 'rbf':
             self.args.setdefault('gamma', 1.0)
             self.kernel_func = rbf_kernel
             self.matrix_func = rbf_matrix 
             
-        elif (self.name == 'linear'):
+        elif self.name == 'linear':
             self.kernel_func = linear_kernel
             self.matrix_func = linear_matrix
             
-        elif (self.name == 'precomputed'):
+        elif self.name == 'precomputed':
             self.kernel_func = None
             self.matrix_func = precomputed_matrix
                      
@@ -71,15 +76,15 @@ class Kernel:
         
         elif self.kernel_func is not None:
             if X2 is not None:
-                dim1          = np.size(X1,0)
-                dim2          = np.size(X2,0)    
+                dim1 = np.size(X1,0)
+                dim2 = np.size(X2,0)
                 kernel_matrix = np.zeros( (dim1,dim2) )
                 
                 for i in range(dim1):
                     for j in range(dim2):
                         kernel_matrix[i,j] = self.kernel_func(X1[i], X2[j], **self.args) 
             else:
-                dim1          = np.size(X1,0)
+                dim1 = np.size(X1,0)
                 kernel_matrix = np.zeros( (dim1,dim1) )
                 
                 for i in range(dim1):
@@ -106,9 +111,9 @@ class KernelClassifier:
         kernel: the kernel object
         X: training examples matrix
         alpha_vector: weight vector (optional) """
-        self.kernel         = kernel
-        self.X1             = X
-        self.X1_shape       = np.shape(X) if X is not None else (0,0)
+        self.kernel = kernel
+        self.X1 = X
+        self.X1_shape = np.shape(X) if X is not None else (0,0)
         
         if alpha_vector is None:
             self.alpha_vector = np.zeros(self.X1_shape[0])
@@ -142,9 +147,3 @@ class KernelClassifier:
     def write_to_file(self, filename):
         """Write the weight vector into a file."""
         self.alpha_vector.tofile(filename, '\n')
-
-        
-
-
-
-
