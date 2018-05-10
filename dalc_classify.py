@@ -49,7 +49,7 @@ try:
     if args.format == 'matrix':
         test_data = dataset_from_matrix_file(args.test_file)
     elif args.format == 'svmlight':   
-        test_data = dataset_from_svmlight_file(args.test_file)
+        test_data = dataset_from_svmlight_file(args.test_file, classifier.X1_shape[1])
 except:
     print('ERROR: Unable to load test file "' + args.test_file + '".')
     sys.exit(-1)

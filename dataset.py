@@ -103,9 +103,15 @@ def dataset_from_matrix_file(filename, separator=None, first_column_contains_lab
     data.load_matrix_file(filename, separator, first_column_contains_labels, last_column_contains_labels)
     return data
 
-def dataset_from_svmlight_file(filename, min_features=0):
+def dataset_from_svmlight_file(filename, nb_features=None):
     """Utility function. Initialize a dataset and call Dataset.load_svmlight_file(...)."""
     data = Dataset()
+
+    min_features = 0 if nb_features is None else nb_features
     data.load_svmlight_file(filename, min_features)
+    
+    if nb_features is not None and data.get_nb_features() > nb_features:
+        data.reshape_features(nb_features)
+    
     return data
 
