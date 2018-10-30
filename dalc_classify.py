@@ -6,7 +6,7 @@ See: http://arxiv.org/abs/1506.04573
 
 Executable script to use the classifier (to be used after the learning process).
 
-@author: Pascal Germain -- http://graal.ift.ulaval.ca/pgermain
+@author: Pascal Germain -- http://researchers.lille.inria.fr/pgermain/
 '''
 import common
 from dalc import *
@@ -17,7 +17,7 @@ import sys
 import pickle
 import argparse 
 
-# common.print_header('CLASSIFICATION')
+common.print_header('CLASSIFICATION')
 
 # Arguments parser   
 parser = argparse.ArgumentParser(description="", formatter_class=common.custom_formatter, epilog="")

@@ -5,7 +5,7 @@ See: http://arxiv.org/abs/1506.04573
 
 Learning algorithm implementation
 
-@author: Pascal Germain -- http://graal.ift.ulaval.ca/pgermain
+@author: Pascal Germain -- http://researchers.lille.inria.fr/pgermain/
 '''
 from kernel import Kernel, KernelClassifier
 import numpy as np

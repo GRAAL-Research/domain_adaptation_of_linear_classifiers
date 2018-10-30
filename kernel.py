@@ -5,7 +5,7 @@ See: http://arxiv.org/abs/1506.04573
 
 Kernel class and KernelClassifier class
 
-@author: Pascal Germain -- http://graal.ift.ulaval.ca/pgermain
+@author: Pascal Germain -- http://researchers.lille.inria.fr/pgermain/
 '''
 import numpy as np
 from scipy.spatial.distance import cdist

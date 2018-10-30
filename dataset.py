@@ -5,7 +5,7 @@ See: http://arxiv.org/abs/1506.04573
 
 Dataset class
 
-@author: Pascal Germain -- http://graal.ift.ulaval.ca/pgermain
+@author: Pascal Germain -- http://researchers.lille.inria.fr/pgermain/
 '''
 import numpy as np
 

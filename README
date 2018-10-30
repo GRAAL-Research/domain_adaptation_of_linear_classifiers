@@ -15,7 +15,7 @@ Reference:
 
 Thank you for looking at my code!
 
-This program have been tested using Python 3.5 under Linux and MacOS.
+This program have been tested using Python 3.6 under Linux and MacOS.
 It requires the NumPy and SciPy libraries.
 
 I prepared three small scripts to use DALC by the command line:
@@ -27,6 +27,9 @@ Further usage instructions can be obtained by the following commands:
 python dalc_learn.py --help
 python dalc_classify.py --help
 python dalc_reverse_cv.py --help
+
+The data used in the paper experiments is available here (in svmlight format):
+http://researchers.lille.inria.fr/pgermain/data/amazon_tfidf_svmlight.tgz
 
 Pascal Germain.
 
